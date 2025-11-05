@@ -8,11 +8,11 @@ services:
     ports:
       - '2006:3000'
     environment:
-     - DATABASE_HOST=db
-     - DATABASE_PORT=5432
-     - DATABASE_USERNAME=postgres
-     - DATABASE_PASSWORD=este
-     - DATABASE_NAME=ecommerce
+     - DB_HOST=db
+     - DB_PORT=5432
+     - DB_USERNAME=user 
+     - DB_PASSWORD=password
+     - DB_NAME=ecommerce
      - JWT_SECRET=secret
      - CLOUDINARY_CLOUD_NAME=dtwp4lemc
      - CLOUDINARY_API_KEY=174539827722462
