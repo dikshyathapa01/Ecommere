@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products — ShopNest</title>
+  <link rel="stylesheet" href="../shared/shared.css">
+</head>
+<body>
+
+<div class="bg-blobs"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <div class="logo">S</div>
+    <span>ShopNest</span>
+  </div>
+  <ul class="sidebar-nav">
+    <li><a href="../dashboard/dashboard.html"><span class="icon">🏠</span> Dashboard</a></li>
+    <li><a href="../products/products.html" class="active"><span class="icon">📦</span> Products</a></li>
+    <li><a href="../categories/categories.html"><span class="icon">🏷️</span> Categories</a></li>
+    <li><a href="../orders/orders.html"><span class="icon">🛒</span> Orders</a></li>
+    <li><a href="../cart/cart.html"><span class="icon">🛍️</span> Shopping Cart</a></li>
+    <li><a href="../payments/payments.html"><span class="icon">💳</span> Payments</a></li>
+  </ul>
+  <div class="sidebar-footer">
+    <a href="#" onclick="logout()"><span class="icon">🚪</span> Logout</a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main-content">
+  <div class="topbar">
+    <h1><span>Products</span></h1>
+    <div class="topbar-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search products…">
+      </div>
+      <button class="btn btn-primary" onclick="openAddModal()">+ Add Product</button>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-icon pink">📦</div>
+      <div class="stat-info">
+        <h3 id="totalCount">0</h3>
+        <p>Total Products</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon green">💲</div>
+      <div class="stat-info">
+        <h3 id="avgPrice">$0</h3>
+        <p>Average Price</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon blue">🏷️</div>
+      <div class="stat-info">
+        <h3 id="totalBrands">0</h3>
+        <p>Brands</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT GRID -->
+  <div class="card-grid" id="productGrid">
+    <div class="loader"><div class="spinner"></div></div>
+  </div>
+</main>
+
+<!-- ADD/EDIT MODAL -->
+<div class="modal-overlay" id="productModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="modalTitle">Add Product</h2>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editId">
+      <div class="form-group">
+        <label>Product Name</label>
+        <input class="form-control" id="pName" placeholder="e.g. Wireless Headphones">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Price ($)</label>
+          <input class="form-control" id="pPrice" type="number" min="1" placeholder="30">
+        </div>
+        <div class="form-group">
+          <label>Brand</label>
+          <input class="form-control" id="pBrand" placeholder="e.g. Sony">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea class="form-control" id="pDesc" placeholder="Product description…"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Variants (color, size, stock — one per row)</label>
+        <div id="variantRows"></div>
+        <button class="btn btn-secondary btn-sm" type="button" onclick="addVariantRow()" style="margin-top:8px">+ Add Variant</button>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveProduct()">Save Product</button>
+    </div>
+  </div>
+</div>
+
+<script src="../shared/shared.js"></script>
+<script src="products.js"></script>
+</body>
+</html>

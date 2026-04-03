@@ -14,37 +14,37 @@ import { Order } from '../../orders/entities/order.entity';
 @Entity()
 export class Payment {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column()
-  orderId: string;
+  orderId!: string;
 
   @Column()
-  userId: string;
+  userId!: string;
 
   @Column('float')
-  amount: number;
+  amount!: number;
 
   @Column({
     type: 'enum',
     enum: ['pending', 'completed', 'failed'],
     default: 'pending',
   })
-  status: 'pending' | 'completed' | 'failed';
+  status!: 'pending' | 'completed' | 'failed';
 
   @Column({ nullable: true })
   transactionId?: string; // PayPal or other payment gateway transaction ID
 
   @ManyToOne(() => User, (user) => user.payments, { onDelete: 'CASCADE' })
-  user: User;
+  user!: User;
 
   @OneToOne(() => Order, (order) => order.payment, { onDelete: 'CASCADE' })
   @JoinColumn()
-  order: Order;
+  order!: Order;
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt!: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt!: Date;
 }

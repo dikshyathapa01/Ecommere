@@ -33,10 +33,10 @@ throw new InternalServerErrorException(error);
     }
   
   }
-  addProduct(createProductDto: CreateProductDto):Promise<Product>{
+  async addProduct(createProductDto: CreateProductDto):Promise<Product>{
     try {
       const product = this.productRepository.create(createProductDto);
-      return this.productRepository.save(product);
+      return await this.productRepository.save(product);
     } catch (error) {
       throw new InternalServerErrorException(error);
     }

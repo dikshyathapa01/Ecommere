@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — ShopNest</title>
+  <link rel="stylesheet" href="../shared/shared.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<div class="bg-blobs"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <div class="logo">S</div>
+    <span>ShopNest</span>
+  </div>
+  <ul class="sidebar-nav">
+    <li><a href="../dashboard/dashboard.html" class="active"><span class="icon">🏠</span> Dashboard</a></li>
+    <li><a href="../products/products.html"><span class="icon">📦</span> Products</a></li>
+    <li><a href="../categories/categories.html"><span class="icon">🏷️</span> Categories</a></li>
+    <li><a href="../orders/orders.html"><span class="icon">🛒</span> Orders</a></li>
+    <li><a href="../cart/cart.html"><span class="icon">🛍️</span> Shopping Cart</a></li>
+    <li><a href="../payments/payments.html"><span class="icon">💳</span> Payments</a></li>
+  </ul>
+  <div class="sidebar-footer">
+    <a href="#" onclick="logout()"><span class="icon">🚪</span> Logout</a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main-content">
+  <div class="topbar">
+    <h1>Welcome back, <span id="userName">User</span> 👋</h1>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-icon pink">📦</div>
+      <div class="stat-info">
+        <h3 id="totalProducts">0</h3>
+        <p>Total Products</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon orange">🛒</div>
+      <div class="stat-info">
+        <h3 id="totalOrders">0</h3>
+        <p>Total Orders</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon green">💰</div>
+      <div class="stat-info">
+        <h3 id="totalRevenue">$0</h3>
+        <p>Revenue</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon blue">🛍️</div>
+      <div class="stat-info">
+        <h3 id="cartItems">0</h3>
+        <p>Cart Items</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECENT ORDERS TABLE -->
+  <div class="table-wrapper">
+    <div class="table-header">
+      <h2>Recent Orders</h2>
+      <a href="../orders/orders.html" class="btn btn-secondary btn-sm">View All →</a>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Status</th>
+          <th>Total</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="recentOrdersBody">
+        <tr><td colspan="4" class="loader"><div class="spinner"></div></td></tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<script src="../shared/shared.js"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>

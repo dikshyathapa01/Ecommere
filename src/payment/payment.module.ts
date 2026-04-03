@@ -6,15 +6,21 @@ import { Payment } from './entities/payment.entity';
 import { Order } from '../orders/entities/order.entity';
 import { UsersModule } from '../users/users.module';
 import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 
 
 @Module({
   imports: [TypeOrmModule.forFeature([Payment, Order]),
    UsersModule,
-     JwtModule.register({
-    secret:process.env.JWT_SECRET || 'defaultSecret',
-    signOptions:{expiresIn: '1h'},}),
+     JwtModule.registerAsync({
+    imports: [ConfigModule],
+    inject: [ConfigService],
+    useFactory: (config: ConfigService) => ({
+      secret: config.get<string>('JWT_SECRET', 'defaultSecret'),
+      signOptions: { expiresIn: '1h' },
+    }),
+  }),
     ],
   controllers: [PaymentsController],
   providers: [PaymentsService],

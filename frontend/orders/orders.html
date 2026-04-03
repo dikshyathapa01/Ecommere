@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orders — ShopNest</title>
+  <link rel="stylesheet" href="../shared/shared.css">
+  <link rel="stylesheet" href="orders.css">
+</head>
+<body>
+
+<div class="bg-blobs"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <div class="logo">S</div>
+    <span>ShopNest</span>
+  </div>
+  <ul class="sidebar-nav">
+    <li><a href="../dashboard/dashboard.html"><span class="icon">🏠</span> Dashboard</a></li>
+    <li><a href="../products/products.html"><span class="icon">📦</span> Products</a></li>
+    <li><a href="../categories/categories.html"><span class="icon">🏷️</span> Categories</a></li>
+    <li><a href="../orders/orders.html" class="active"><span class="icon">🛒</span> Orders</a></li>
+    <li><a href="../cart/cart.html"><span class="icon">🛍️</span> Shopping Cart</a></li>
+    <li><a href="../payments/payments.html"><span class="icon">💳</span> Payments</a></li>
+  </ul>
+  <div class="sidebar-footer">
+    <a href="#" onclick="logout()"><span class="icon">🚪</span> Logout</a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main-content">
+  <div class="topbar">
+    <h1><span>Orders</span></h1>
+    <div class="topbar-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search by Order ID…">
+      </div>
+      <button class="btn btn-primary" onclick="openCreateModal()">+ New Order</button>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-icon pink">🛒</div>
+      <div class="stat-info">
+        <h3 id="totalOrders">0</h3>
+        <p>Total Orders</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon orange">⏳</div>
+      <div class="stat-info">
+        <h3 id="pendingOrders">0</h3>
+        <p>Pending</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon green">✅</div>
+      <div class="stat-info">
+        <h3 id="deliveredOrders">0</h3>
+        <p>Delivered</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon blue">💰</div>
+      <div class="stat-info">
+        <h3 id="totalRevenue">$0</h3>
+        <p>Total Revenue</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTER TABS -->
+  <div class="status-tabs" style="display:flex;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap">
+    <button class="btn btn-secondary btn-sm status-btn active" data-status="all" style="background:var(--gradient);color:#fff">All</button>
+    <button class="btn btn-secondary btn-sm status-btn" data-status="pending">Pending</button>
+    <button class="btn btn-secondary btn-sm status-btn" data-status="confirmed">Confirmed</button>
+    <button class="btn btn-secondary btn-sm status-btn" data-status="shipped">Shipped</button>
+    <button class="btn btn-secondary btn-sm status-btn" data-status="delivered">Delivered</button>
+    <button class="btn btn-secondary btn-sm status-btn" data-status="cancelled">Cancelled</button>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrapper">
+    <div class="table-header">
+      <h2>Order List</h2>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>User</th>
+          <th>Items</th>
+          <th>Total</th>
+          <th>Status</th>
+          <th>Payment</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="ordersBody">
+        <tr><td colspan="8"><div class="loader"><div class="spinner"></div></div></td></tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<!-- CREATE ORDER MODAL -->
+<div class="modal-overlay" id="createOrderModal">
+  <div class="modal" style="width:600px">
+    <div class="modal-head">
+      <h2>Create New Order</h2>
+      <button class="modal-close" onclick="closeCreateModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Shipping Address</label>
+        <textarea class="form-control" id="oAddress" placeholder="Full shipping address (min 10 chars)"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Payment Method</label>
+        <select class="form-control" id="oPayment">
+          <option value="credit_card">Credit Card</option>
+          <option value="debit_card">Debit Card</option>
+          <option value="paypal">PayPal</option>
+          <option value="cash_on_delivery">Cash on Delivery</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Order Items</label>
+        <div id="orderItemRows"></div>
+        <button class="btn btn-secondary btn-sm" type="button" onclick="addOrderItemRow()" style="margin-top:8px">+ Add Item</button>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeCreateModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="submitOrder()">Place Order</button>
+    </div>
+  </div>
+</div>
+
+<!-- ORDER DETAIL MODAL -->
+<div class="modal-overlay" id="orderDetailModal">
+  <div class="modal" style="width:600px">
+    <div class="modal-head">
+      <h2>Order Details</h2>
+      <button class="modal-close" onclick="closeDetailModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="orderDetailBody"></div>
+  </div>
+</div>
+
+<!-- STATUS UPDATE MODAL -->
+<div class="modal-overlay" id="statusModal">
+  <div class="modal" style="width:380px">
+    <div class="modal-head">
+      <h2>Update Status</h2>
+      <button class="modal-close" onclick="closeStatusModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="statusOrderId">
+      <div class="form-group">
+        <label>New Status</label>
+        <select class="form-control" id="newStatus">
+          <option value="pending">Pending</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="shipped">Shipped</option>
+          <option value="delivered">Delivered</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeStatusModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="updateStatus()">Update</button>
+    </div>
+  </div>
+</div>
+
+<script src="../shared/shared.js"></script>
+<script src="orders.js"></script>
+</body>
+</html>

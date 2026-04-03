@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Categories — ShopNest</title>
+  <link rel="stylesheet" href="../shared/shared.css">
+</head>
+<body>
+
+<div class="bg-blobs"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <div class="logo">S</div>
+    <span>ShopNest</span>
+  </div>
+  <ul class="sidebar-nav">
+    <li><a href="../dashboard/dashboard.html"><span class="icon">🏠</span> Dashboard</a></li>
+    <li><a href="../products/products.html"><span class="icon">📦</span> Products</a></li>
+    <li><a href="../categories/categories.html" class="active"><span class="icon">🏷️</span> Categories</a></li>
+    <li><a href="../orders/orders.html"><span class="icon">🛒</span> Orders</a></li>
+    <li><a href="../cart/cart.html"><span class="icon">🛍️</span> Shopping Cart</a></li>
+    <li><a href="../payments/payments.html"><span class="icon">💳</span> Payments</a></li>
+  </ul>
+  <div class="sidebar-footer">
+    <a href="#" onclick="logout()"><span class="icon">🚪</span> Logout</a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main-content">
+  <div class="topbar">
+    <h1><span>Categories</span></h1>
+    <div class="topbar-actions">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search categories…">
+      </div>
+      <button class="btn btn-primary" onclick="openAddModal()">+ Add Category</button>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-icon pink">🏷️</div>
+      <div class="stat-info">
+        <h3 id="totalCount">0</h3>
+        <p>Total Categories</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon green">✅</div>
+      <div class="stat-info">
+        <h3 id="activeCount">0</h3>
+        <p>Active</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon orange">⏸️</div>
+      <div class="stat-info">
+        <h3 id="inactiveCount">0</h3>
+        <p>Inactive</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrapper">
+    <div class="table-header">
+      <h2>All Categories</h2>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-secondary btn-sm filter-btn active" data-filter="all">All</button>
+        <button class="btn btn-secondary btn-sm filter-btn" data-filter="active">Active</button>
+        <button class="btn btn-secondary btn-sm filter-btn" data-filter="inactive">Inactive</button>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th>Parent</th>
+          <th>Created</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="categoriesBody">
+        <tr><td colspan="7"><div class="loader"><div class="spinner"></div></div></td></tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<!-- ADD/EDIT MODAL -->
+<div class="modal-overlay" id="categoryModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="modalTitle">Add Category</h2>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editId">
+      <div class="form-group">
+        <label>Category Name</label>
+        <input class="form-control" id="cName" placeholder="e.g. Electronics">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea class="form-control" id="cDesc" placeholder="Category description (min 10 chars)…"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Status</label>
+          <select class="form-control" id="cActive">
+            <option value="true">Active</option>
+            <option value="false">Inactive</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Parent Category ID (optional)</label>
+          <input class="form-control" id="cParent" type="number" placeholder="e.g. 1">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveCategory()">Save Category</button>
+    </div>
+  </div>
+</div>
+
+<script src="../shared/shared.js"></script>
+<script src="categories.js"></script>
+</body>
+</html>

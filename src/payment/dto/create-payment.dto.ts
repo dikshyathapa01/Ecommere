@@ -3,11 +3,11 @@ import { Column, PrimaryGeneratedColumn } from 'typeorm';
 
 export class CreatePaymentDto {
    @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
  @Column()
-  orderId: string;
+  orderId!: string;
   @Column()
-  amount: number;
+  amount!: number;
 @Column()
-  userId: string;
+  userId!: string;
 }

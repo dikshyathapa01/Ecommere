@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="user.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    <header>
+      <h1>Welcome, <span id="userName">User</span></h1>
+    </header>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" data-tab="products">Products</button>
+      <button class="tab" data-tab="orders">Orders</button>
+      <button class="tab" data-tab="payments">Payments</button>
+      <button class="tab" data-tab="cart">Shopping Cart</button>
+    </div>
+
+    <!-- Content Sections -->
+    <div class="tab-content active" id="products">
+      <div id="productsList" class="cards-container"></div>
+    </div>
+
+    <div class="tab-content" id="orders">
+      <ul id="ordersList"></ul>
+    </div>
+
+    <div class="tab-content" id="payments">
+      <ul id="paymentsList"></ul>
+    </div>
+
+    <div class="tab-content" id="cart">
+      <ul id="cartList"></ul>
+    </div>
+  </div>
+
+  <script src="user.js"></script>
+</body>
+</html>

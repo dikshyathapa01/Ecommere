@@ -1,5 +1,6 @@
 import {
   Column,
+  Index,
   CreateDateColumn,
   Entity,
   OneToOne,
@@ -26,6 +27,7 @@ export type PaymentMethod =
   | 'cash_on_delivery';
 
 @Entity('orders')
+@Index(['userId'])
 export class Order {
   @PrimaryGeneratedColumn('uuid')
   id: string;

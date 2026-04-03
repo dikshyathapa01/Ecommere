@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -9,14 +9,23 @@ import { Roles } from './decorators/roles.decorator';
 import { UserRole } from './entities/user.entity';
 import { RolesGuard } from './auth/roles.guard';
 import { Auth } from './decorators/auth.decorator';
+import { FileInterceptor } from '@nestjs/platform-express';
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
-  }
+  // @Post('register')
+  // create(@Body() createUserDto: CreateUserDto) {
+  //   return this.usersService.create(createUserDto);
+  // }
+  @Post('/register')
+@UseInterceptors(FileInterceptor('profile'))
+register(
+  @UploadedFile() _file: Express.Multer.File,
+  @Body() dto: CreateUserDto
+){
+  return this.usersService.create(dto);
+}
   @Get()
  //if we only use @Auth() decorator,it will use AuthGuard by default but do not use RolesGuard
  //if we pass roles as parameter to @Auth() decorator, it will use both AuthGuard and RolesGuard
@@ -26,6 +35,12 @@ export class UsersController {
     const user=req.user;
     console.log(user);
     return this.usersService.findAll();
+  }
+
+  @Get('me')
+  @UseGuards(AuthGuard)
+  me(@Req() req: RequestWithUser) {
+    return req.user;
   }
   
 
@@ -44,17 +59,18 @@ export class UsersController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+    return this.usersService.remove(id);
   }
   @Post('/login')
   login(
     @CustomBody('email')email:string,
     @CustomBody('password')password:string,
-  ):Promise<{token :string}>{
+  ):Promise<{ token: string; role: string }>{
     return this.usersService.login(email,password);
   }
 
 }
+
 //body ko kaam garne decorator same as body
 //TODO:Assignment:Implement @CustomBody() decorator mimicing the functionality of @Body() decorator
 //And use it in the new post method below

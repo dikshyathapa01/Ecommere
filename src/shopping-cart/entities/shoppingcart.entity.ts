@@ -1,25 +1,30 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
-import { User } from '../../users/entities/user.entity';
-import { Product } from '../../products/entities/product.entity';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Product } from "../../products/entities/product.entity";
+import { User } from "../../users/entities/user.entity";
 
 @Entity('shopping_cart_items')
 export class ShoppingCartItem {
+
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column({ default: 1 })
-  quantity: number;
+  quantity!: number;
 
-  @Column()
-  userId: string;
+  @Column('uuid')
+  userId!: string;
 
-  @Column()
-  productId: string; 
+  @Column('uuid')
+  productId!: string;
 
-  product: Product;
+  @ManyToOne(() => Product, { eager: false })
+  @JoinColumn({ name: 'productId' })
+  product!: Product;
+
+  @ManyToOne(() => User, (user) => user.cartItems, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'userId' })
+  user!: User;
 
   @CreateDateColumn()
-  createdAt: Date;
-   @ManyToOne(() => User, (user) => user.cartItems, { onDelete: 'CASCADE' })
-  user: User;
+  createdAt!: Date;
 }

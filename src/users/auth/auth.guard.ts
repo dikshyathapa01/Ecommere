@@ -9,7 +9,7 @@ import { Request } from 'express';
 import { UsersService } from '../users.service';
 
 interface JwtPayload {
-  id: string;
+  sub: string;
   email: string;
   iat?: number;
   exp?: number;
@@ -25,15 +25,18 @@ export class AuthGuard implements CanActivate {
     if (!token) {
       throw new UnauthorizedException('No token provided');
     }
-    const payload = await this.jwtService.verifyAsync<JwtPayload>(token, {
-      secret: process.env.JWT_SECRET || 'defaultSecret',
-    });
+    let payload: JwtPayload;
+    try {
+      payload = await this.jwtService.verifyAsync<JwtPayload>(token);
+    } catch {
+      throw new UnauthorizedException('Invalid or expired token');
+    }
     if (!payload) {
       throw new UnauthorizedException('Invalid token');
     }
     //TODO:Similar to AuthMiddleware from express ,get user info from database and attach to request
     //as of now we are just attaching the payload 
-    const user=await this.usersService.findOne(payload.id);
+    const user=await this.usersService.findOne(payload.sub);
     request['user'] = user;
     return true;
   }

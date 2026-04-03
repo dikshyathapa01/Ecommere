@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payments — ShopNest</title>
+  <link rel="stylesheet" href="../shared/shared.css">
+  <link rel="stylesheet" href="payments.css">
+</head>
+<body>
+
+<div class="bg-blobs"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <div class="logo">S</div>
+    <span>ShopNest</span>
+  </div>
+  <ul class="sidebar-nav">
+    <li><a href="../dashboard/dashboard.html"><span class="icon">🏠</span> Dashboard</a></li>
+    <li><a href="../products/products.html"><span class="icon">📦</span> Products</a></li>
+    <li><a href="../categories/categories.html"><span class="icon">🏷️</span> Categories</a></li>
+    <li><a href="../orders/orders.html"><span class="icon">🛒</span> Orders</a></li>
+    <li><a href="../cart/cart.html"><span class="icon">🛍️</span> Shopping Cart</a></li>
+    <li><a href="../payments/payments.html" class="active"><span class="icon">💳</span> Payments</a></li>
+  </ul>
+  <div class="sidebar-footer">
+    <a href="#" onclick="logout()"><span class="icon">🚪</span> Logout</a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main-content">
+  <div class="topbar">
+    <h1><span>Payments</span></h1>
+    <div class="topbar-actions">
+      <button class="btn btn-primary" onclick="openPayModal()">+ New Payment</button>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-icon pink">💳</div>
+      <div class="stat-info">
+        <h3 id="totalPayments">0</h3>
+        <p>Total Payments</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon green">✅</div>
+      <div class="stat-info">
+        <h3 id="completedPayments">0</h3>
+        <p>Completed</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon orange">⏳</div>
+      <div class="stat-info">
+        <h3 id="pendingPayments">0</h3>
+        <p>Pending</p>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon blue">💰</div>
+      <div class="stat-info">
+        <h3 id="totalAmount">$0.00</h3>
+        <p>Total Paid</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTER TABS -->
+  <div style="display:flex;gap:8px;margin-bottom:1.5rem;flex-wrap:wrap">
+    <button class="btn btn-secondary btn-sm pay-filter active" data-filter="all" style="background:var(--gradient);color:#fff">All</button>
+    <button class="btn btn-secondary btn-sm pay-filter" data-filter="pending">Pending</button>
+    <button class="btn btn-secondary btn-sm pay-filter" data-filter="completed">Completed</button>
+    <button class="btn btn-secondary btn-sm pay-filter" data-filter="failed">Failed</button>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrapper">
+    <div class="table-header">
+      <h2>Payment History</h2>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Payment ID</th>
+          <th>Order ID</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Transaction ID</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="paymentsBody">
+        <tr><td colspan="7"><div class="loader"><div class="spinner"></div></div></td></tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<!-- CREATE PAYMENT MODAL -->
+<div class="modal-overlay" id="payModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>Create Payment</h2>
+      <button class="modal-close" onclick="closePayModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Order ID</label>
+        <select class="form-control" id="payOrderId">
+          <option value="">Select an order…</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Amount ($)</label>
+        <input class="form-control" id="payAmount" type="number" step="0.01" min="0" placeholder="0.00">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closePayModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="createPayment()">Create Payment</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM PAYMENT MODAL -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal" style="width:420px">
+    <div class="modal-head">
+      <h2>Confirm Payment</h2>
+      <button class="modal-close" onclick="closeConfirmModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="confirmPayId">
+      <div class="form-group">
+        <label>Transaction ID</label>
+        <input class="form-control" id="txnId" placeholder="e.g. TXN-12345678">
+      </div>
+      <div class="payment-animation" style="text-align:center;padding:1.5rem 0">
+        <div class="pay-icon">💳</div>
+        <p style="color:var(--text-muted);margin-top:0.5rem">Enter the transaction ID to confirm this payment</p>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeConfirmModal()">Cancel</button>
+      <button class="btn btn-success" onclick="confirmPayment()">Confirm Payment</button>
+    </div>
+  </div>
+</div>
+
+<script src="../shared/shared.js"></script>
+<script src="payments.js"></script>
+</body>
+</html>

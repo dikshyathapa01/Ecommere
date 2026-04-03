@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auth - Premium UI</title>
+  <link rel="stylesheet" href="login.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+<div class="background"></div>
+
+<div class="auth-box">
+
+  <h1>Welcome</h1>
+  <p>Create your account or login</p>
+
+  <div class="tabs">
+    <button id="loginTab" class="active" type="button">Login</button>
+    <button id="registerTab" type="button">Register</button>
+  </div>
+
+  <!-- LOGIN FORM -->
+  <form id="loginForm" class="form active">
+    <div class="input-group">
+      <input type="email" id="loginEmail" autocomplete="email" required>
+      <label>Email</label>
+    </div>
+
+    <div class="input-group password-box">
+      <input type="password" id="loginPassword" autocomplete="current-password" required>
+      <label>Password</label>
+      <span id="togglePassword">👁</span>
+    </div>
+
+    <button type="submit">Login</button>
+  </form>
+
+  <!-- REGISTER FORM -->
+  <form id="registerForm" class="form">
+    <div class="input-group">
+      <input type="text" id="regName" autocomplete="name" required>
+      <label>Name</label>
+    </div>
+
+    <div class="input-group">
+      <input type="email" id="regEmail" autocomplete="email" required>
+      <label>Email</label>
+    </div>
+
+    <div class="input-group password-box">
+      <input type="password" id="regPassword" autocomplete="new-password" required>
+      <label>Password</label>
+      <span id="togglePasswordRegister">👁</span>
+    </div>
+
+    <div class="input-group">
+      <input type="text" id="regPhone" autocomplete="tel">
+      <label>Phone Number</label>
+    </div>
+
+    <div class="input-group">
+      <input type="text" id="regAddress" autocomplete="street-address" required>
+      <label>Address</label>
+    </div>
+
+    <div class="profile-upload">
+      <img id="preview" src="https://via.placeholder.com/90" alt="Profile Preview">
+      <input type="file" id="profilePic" accept="image/*">
+    </div>
+
+    <button type="submit">Create Account</button>
+  </form>
+
+</div>
+
+<script src="login.js"></script>
+</body>
+</html>

@@ -11,35 +11,35 @@ export enum UserRole{
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column()
-  name: string;
+  name!: string;
 
   @Column()
-  email: string;
+  email!: string;
 
   @Column({select:false})
-  password: string;
+  password!: string;
 
   @Column()
-  PhoneNumber: string;
+  PhoneNumber!: string;
 
   @Column()
-  address: string;
+  address!: string;
   @Column({type:'enum',enum:UserRole,default:UserRole.USER})
-  role:UserRole;
+  role!:UserRole;
 
   @Column({nullable: true})
-  profilePictureId: string;
+  profilePictureId!: string;
   
   @Column({ type: 'text', array: true, default: [] })
-imageIds: string[]; 
+imageIds!: string[]; 
   @OneToMany(() => Order, (order) => order.user, { cascade: true })
-  orders: Order[];
+  orders!: Order[];
 @OneToMany(() => ShoppingCartItem, (cartItem) => cartItem.user)
-cartItems: ShoppingCartItem[];
+cartItems!: ShoppingCartItem[];
 @OneToMany(() => Payment, (payment) => payment.user)
-  payments: Payment[];
+  payments!: Payment[];
 
 }

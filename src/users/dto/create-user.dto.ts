@@ -3,24 +3,24 @@ import { UserRole } from '../entities/user.entity';
 
 export class CreateUserDto {
   @IsString()
-  name: string;
+  name!: string;
 
   @IsString()
-  email: string;
+  email!: string;
 
   @IsString()
-  password: string;
+  password!: string;
 
   @IsString()
   PhoneNumber?: string;
 
   @IsString()
-  address: string;
+  address!: string;
   
   @IsOptional()
   @IsString()
   profilePicture?: string;
   
   @IsEnum(UserRole)
-  role:UserRole;
+  role!:UserRole;
 }

@@ -1,0 +1,160 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter, sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#ac9a9e; /* soft pink background */
+color:#4b2e2e; /* brown text */
+overflow:hidden;
+}
+
+/* background gradient effect */
+.background{
+position:absolute;
+width:100%;
+height:100%;
+background:radial-gradient(circle at 20% 30%, #f9c0d0, transparent 40%),
+radial-gradient(circle at 80% 70%, #a66b5a, transparent 40%);
+filter:blur(100px);
+opacity:.7;
+}
+
+.auth-box{
+position:relative;
+width:420px;
+padding:40px;
+border-radius:16px;
+background:rgba(255,255,255,0.25);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,0.1);
+box-shadow:0 20px 60px rgba(0,0,0,.2);
+}
+
+.auth-box h1{
+font-size:28px;
+margin-bottom:5px;
+text-align:center;
+color:#4b2e2e;
+}
+
+.auth-box p{
+color:#6b3b3b;
+margin-bottom:25px;
+text-align:center;
+}
+
+.tabs{
+display:flex;
+margin-bottom:20px;
+}
+
+.tabs button{
+flex:1;
+padding:10px;
+border:none;
+background:transparent;
+color:#4b2e2e;
+cursor:pointer;
+font-size:16px;
+border-bottom:2px solid transparent;
+transition:.3s;
+}
+
+.tabs button.active{
+border-bottom:2px solid #f9c0d0;
+}
+
+.form{
+display:none;
+flex-direction:column;
+}
+
+.form.active{
+display:flex;
+}
+
+.input-group{
+position:relative;
+margin-bottom:20px;
+}
+
+.input-group input{
+width:100%;
+padding:14px;
+border-radius:8px;
+border:1px solid rgba(75,46,46,0.3);
+background:transparent;
+color:#4b2e2e;
+outline:none;
+}
+
+.input-group label{
+position:absolute;
+left:12px;
+top:12px;
+color:#6b3b3b;
+font-size:14px;
+transition:0.3s;
+pointer-events:none;
+}
+
+.input-group input:focus + label,
+.input-group input:valid + label{
+top:-8px;
+left:8px;
+font-size:11px;
+background:#f0ecef;
+padding:0 5px;
+}
+
+.password-box span{
+position:absolute;
+right:10px;
+top:12px;
+cursor:pointer;
+}
+
+.profile-upload{
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:15px;
+}
+
+.profile-upload img{
+width:70px;
+height:70px;
+border-radius:50%;
+object-fit:cover;
+border:2px solid #070304;
+}
+
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:10px;
+background:linear-gradient(135deg,#1e060d,#a66b5a);
+color:rgb(27, 9, 18);
+font-size:15px;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:translateY(-2px);
+box-shadow:0 10px 30px rgba(249,192,208,.5);
+}
+
+.oauth-login{
+margin-top:15px;
+text-align:center;
+}

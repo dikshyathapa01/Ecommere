@@ -4,23 +4,23 @@ import { ShoppingCartItem } from '../../shopping-cart/entities/shoppingcart.enti
 @Entity()
 export class Product{
 @PrimaryGeneratedColumn('uuid')
-id:string;
+id!:string;
 @Column()
-name:string;
+name!:string;
 @Column()
-price:number;
+price!:number;
 @Column()
-description:string;
+description!:string;
 @Column()
-brand:string;
-@Column({ type: 'text', array: true, default: [] })
-imageIds: string[]; 
+brand!:string;
+@Column({ type: 'text', array: true, default: '{}' })
+imageIds!: string[]; 
 //@Column()
 //imageUrl:string;
 @Column({type:'jsonb'})//json le problem huna sakxa yesle caii binary ma save garne vako vayera use garya 
-variant:variant[];
+variant!:variant[];
 @OneToMany(()=>OrderItem,(orderItem)=> orderItem.product)
-OrderItems:OrderItem[]
+OrderItems!:OrderItem[]
 // @OneToMany(() => ShoppingCartItem, (cartItem) => cartItem.product)
 // cartItems: ShoppingCartItem[];
 

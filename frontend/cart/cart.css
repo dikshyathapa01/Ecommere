@@ -1,0 +1,35 @@
+/* Cart page specifics */
+.checkout-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, rgba(249,192,208,0.3), rgba(255,221,210,0.3));
+  border: 1px solid var(--primary-light);
+}
+.checkout-info h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.checkout-info p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.checkout-total {
+  font-size: 1.8rem;
+  font-weight: 800;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@media (max-width: 700px) {
+  .checkout-bar {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
